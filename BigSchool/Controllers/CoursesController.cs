@@ -16,15 +16,26 @@ namespace BigSchool.Controllers
         {
             _dbContext = new ApplicationDbContext();
         }
+        [Authorize]
         // GET: Courses
-        public ActionResult Index()
+        public ActionResult Create()
         {
-            return View();
+            var viewModel = new CourseViewModel
+            {
+                Categories = _dbContext.Caterories.ToList()
+            };
+            return View(viewModel);
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Caterories.ToList();
+                return View("Create", viewModel);
+            }
             var course = new Course
             {
                 LecturerId = User.Identity.GetUserId(),
