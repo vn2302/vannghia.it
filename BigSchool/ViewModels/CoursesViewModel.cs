@@ -10,5 +10,14 @@ namespace BigSchool.ViewModels
     {
         public IEnumerable<Course> UpcommingCourses { get; set; }
         public bool ShowAction { get; set; }
+        public List<Category> Categories { get; internal set; }
+        public int Id { get; internal set; }
+        public string Place { get; internal set; }
+        public byte Category { get; internal set; }
+
+        internal DateTime GetDateTime()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

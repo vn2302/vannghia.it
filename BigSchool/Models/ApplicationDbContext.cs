@@ -11,10 +11,9 @@ namespace BigSchool.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Category> Caterories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Attendance> Attendances{ get; set; }
         public DbSet<Following> Followings { get; set; }
-        public object Categories { get; internal set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

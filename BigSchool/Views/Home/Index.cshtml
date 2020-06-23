@@ -1,4 +1,4 @@
-﻿@model  BigSchool.ViewModels.CourseViewModel
+﻿@model  BigSchool.ViewModels.CoursesViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -46,31 +46,46 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            $(".js-toggle-attendance").click(funcion(e){
-                var button = $(e.target);
-                $post("/api/attendances", { courseId: button.attr("data-course-id")
-            })
-                .done(funcion(){
-                    button
-                        .removeClass("btn-defaut")
-                        .addClass("btn-info")
-                        .text("Going");
-                })
-                .fail(funcion(){
-                    alert("Something failed");
-                });
-        });
-        $(".js-toggle-follow").click(function (e) {
-            var button = $(e.target);
-            $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                .done(function () {
-                    button.text("Following");
-                })
-                .fail(function () {
-                    alert("something failed!");
-                });
-        });
-     });
+		$(document).ready(function () {
+			$(".js-toggle-attendance").click(function (e) {
+				var button = $(e.target);
+				$.post("/api/attendances", { courseID: button.attr("data-course-id") })
+                    .done(function () {
+                        if (button.text() == "Going?") {
+                            button.text("Going");
+                            button.css("background-color", "#FF3333");
+                        }
+                        else {
+                            button.text("Going?");
+                            button.css("background-color", "#ffffff");
+                        }
+
+					})
+					.fail(function() {
+						alert("something failed!");
+					});
+			});
+
+			$(".js-toggle-follow").click(function (e) {
+				var button = $(e.target);
+				$.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        if (button.text() == "Follow") {
+                            button.text("Following");
+                            button.css("background-color", "#77f539");
+                        }
+                        else {
+                            button.text("Follow");
+                            button.css("background-color", "#ffffff");
+                        }
+
+					})
+					.fail(function () {
+						alert("something failed!");
+					});
+            });
+
+
+		});
     </script>
 }
